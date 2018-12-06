@@ -1,0 +1,10 @@
+bookdown::gitbook:
+  config:
+    toc:
+      collapse: subsection
+      scroll_highlight: yes
+  pandoc_args: [
+  "--from", "markdown+autolink_bare_uris+tex_math_single_backslash-implicit_figures"
+  ]
+  split_by: section+number
+  highlight: kate
