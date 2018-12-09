@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="1-1-event-and-probability.html">
-<link rel="next" href="1-3-.html">
+<link rel="prev" href="1-probability-and-random-variable.html">
+<link rel="next" href="1-2-.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -126,43 +126,125 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="確率分布と母関数" class="section level2">
-<h2><span class="header-section-number">1.2</span> 確率分布と母関数</h2>
-<div id="確率関数" class="section level3">
-<h3><span class="header-section-number">1.2.1</span> 確率関数</h3>
+<div id="event_and_probability" class="section level2">
+<h2><span class="header-section-number">1.1</span> 事象と確率</h2>
+<ul>
+<li><strong>事象</strong>（event)…おこりうる事柄のこと。
+<ul>
+<li><strong>全事象</strong>または<strong>標本空間</strong>（sample space）…可能な結果全ての集合。<span class="math inline">\(\Omega\)</span>で表す。</li>
+<li><strong>標本点</strong>（sample point）…全事象の元。<span class="math inline">\(\omega\)</span>で表す。</li>
+<li>事象は全事象の部分集合である。</li>
+<li><strong>空事象</strong>（empty event）…標本点を含まない事象。<span class="math inline">\(\{\}\)</span>または<span class="math inline">\(\emptyset\)</span>で表す（<span class="math inline">\(\phi\)</span>で代用されることが多い）。</li>
+<li><strong>積事象</strong>（intersection）…2つの事象<span class="math inline">\(A\)</span>と<span class="math inline">\(B\)</span>が両方共起こる事象。
+<ul>
+<li><span class="math inline">\(A \cap B = \{x | x \in A \land x \in B\}\)</span></li>
+</ul></li>
+<li><strong>和事象</strong>（union）…2つの事象<span class="math inline">\(A\)</span>と<span class="math inline">\(B\)</span>の少なくともどちらかが起こる事象
+<ul>
+<li><span class="math inline">\(A \cup B = \{x | x \in A \lor x \in B\}\)</span></li>
+</ul></li>
+<li><strong>補集合</strong>（complement）…<span class="math inline">\(A\)</span>に属さない元の集合。<span class="math inline">\(A^c\)</span>と表す。</li>
+<li><strong>差集合</strong>（relative complement）…<span class="math inline">\(A\)</span>に属するが<span class="math inline">\(B\)</span>に属さない元の集合。
+<ul>
+<li><span class="math inline">\(A \setminus B = A \cup B^c\)</span></li>
+</ul></li>
+<li><strong>対称差</strong>（symmetric difference）…<span class="math inline">\(A\)</span>に属し<span class="math inline">\(B\)</span>に属さないものと、<span class="math inline">\(B\)</span>に属し<span class="math inline">\(A\)</span>に属さないものの集合。
+<ul>
+<li><span class="math inline">\(A \Delta B = (A \setminus B) \cup (B \setminus A)\)</span></li>
+</ul></li>
+</ul></li>
+<li><strong>確率</strong>（probability）…事象<span class="math inline">\(A\)</span>に対して確率<span class="math inline">\(P(A)\)</span>は、区間<span class="math inline">\([0, 1]\)</span>の間の実数を対応させる関数である。
+<ul>
+<li><strong>集合族</strong>…事象の集合。事象は<span class="math inline">\(\Omega\)</span>の部分集合であるので、部分集合の集合ということ。</li>
+<li><strong>可測集合族</strong>…確率を定義できる集合族<span class="math inline">\(\mathcal{B}\)</span>は、次の3つの性質を満たす必要がある。
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\emptyset \in \mathcal{B}, \Omega \in \mathcal{B}\)</span></li>
+<li><span class="math inline">\(A \in \mathcal{B}\)</span>ならば<span class="math inline">\(A^c \in \mathcal{B}\)</span></li>
+<li><span class="math inline">\(A_k \in \mathcal{B}, k = 1, 2, ,...\)</span>ならば<span class="math inline">\(\bigcup_{k=1}^\infty A_k \in \mathcal{B}\)</span></li>
+</ol></li>
+<li><strong>可測集合</strong>…可測集合族の元。</li>
+<li><strong>確率</strong>（probability）…可測集合<span class="math inline">\(A\)</span>に対して実数を対応する関数<span class="math inline">\(P(\cdot)\)</span>で、次の条件を満たすもの。なお、2を除く条件を満たす関数を<strong>測度</strong>（measure）と呼ぶ。
+<ol style="list-style-type: decimal">
+<li>すべての<span class="math inline">\(A \in \mathcal{B}\)</span>に対して<span class="math inline">\(P(A) \geq 0\)</span></li>
+<li><span class="math inline">\(P(\Omega) = 1\)</span></li>
+<li><span class="math inline">\(A_k \in \mathcal{B}, k = 1, 2, ...\)</span>が互いに排反であるとき、<span class="math inline">\(P(\bigcup_{k=1}^\infty A_k) = \sum_{n=1}^\infty P(A_k)\)</span>が成り立つ</li>
+</ol></li>
+<li><strong>確率空間</strong>…<span class="math inline">\((\Omega, \mathcal{B}, P)\)</span>のこと。</li>
+</ul></li>
+</ul>
+<div id="calculate_probability" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> 確率の計算</h3>
+<ul>
+<li>確率の定義から次の性質が導かれる。
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(P(A^c) = 1 - P(A)\)</span></li>
+<li><span class="math inline">\(A \subset B\)</span>ならば<span class="math inline">\(P(A) \leq P(B)\)</span></li>
+<li><span class="math inline">\(P(A \cap B) \leq min(P(A), P(B))\)</span></li>
+<li><span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span></li>
+</ol></li>
+</ul>
 </div>
-<div id="確率密度関数" class="section level3">
-<h3><span class="header-section-number">1.2.2</span> 確率密度関数</h3>
+<div id="independence" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> 統計的独立</h3>
+<p>2つの事象<span class="math inline">\(A\)</span>と<span class="math inline">\(B\)</span>があったとき、片方の事象が起こるかどうかがもう片方の事象が起こるかどうかに影響を及ぼさないとき、2つの事象は<strong>独立である</strong>と言う。</p>
+<p>定義としては、以下の条件を満たす場合を呼ぶ。</p>
+<p><span class="math display">\[
+P(A \cap B) = P(A)P(B)
+\]</span></p>
 </div>
-<div id="同時確率関数" class="section level3">
-<h3><span class="header-section-number">1.2.3</span> 同時確率関数</h3>
+<div id="conditional_probability" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> 条件付き確率</h3>
+<p>2つの事象<span class="math inline">\(A\)</span>と<span class="math inline">\(B\)</span>があり、<span class="math inline">\(P(B) &gt; 0\)</span>のとき、次の値を<span class="math inline">\(B\)</span>を与えたときの<span class="math inline">\(A\)</span>の<strong>条件付き確率</strong>（conditional probability）と呼ぶ。</p>
+<p><span class="math display">\[
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+\]</span></p>
+<p>上記の式の両辺に<span class="math inline">\(P(B)\)</span>を掛けると、</p>
+<p><span class="math display">\[
+P(A|B)P(B) = P(A \cap B)
+\]</span></p>
+<p>が得られるが、同様の操作を<span class="math inline">\(P(B|A)\)</span>に対しても行うことで、次の関係が得られる。</p>
+<p><span class="math display">\[
+P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)
+\]</span></p>
 </div>
-<div id="同時確率密度関数" class="section level3">
-<h3><span class="header-section-number">1.2.4</span> 同時確率密度関数</h3>
+<div id="bayes_theorem" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> ベイズの定理</h3>
+<div id="law_of_total_probability" class="section level4">
+<h4><span class="header-section-number">1.1.4.1</span> 全確率の公式</h4>
+<p><span class="math display">\[
+P(A) = \sum_{k=1}^\infty P(A|B_k)P(B_k)
+\]</span></p>
+<p>ただし、<span class="math inline">\(B_1, B_2, ...\)</span>は互いに排反であり、<span class="math inline">\(\bigcup_{k=1}^\infty B_k = \Omega\)</span>でなければならない。</p>
 </div>
-<div id="周辺確率関数" class="section level3">
-<h3><span class="header-section-number">1.2.5</span> 周辺確率関数</h3>
+<div id="bayes_tehorem_2" class="section level4">
+<h4><span class="header-section-number">1.1.4.2</span> ベイズの定理</h4>
+<p><span class="math inline">\(B_1, B_2, ...\)</span>は互いに排反であり、<span class="math inline">\(\bigcup_{k=1}^\infty B_k = \Omega\)</span>を満たすとき、<span class="math inline">\(P(B_j|A)\)</span>を次のように表す。</p>
+<p><span class="math display">\[
+P(B_j|A) = \frac{P(A|B_j)P(B_j)}{\sum_{k=1}^\infty P(A|B_k)P(B_k)}
+\]</span></p>
+<p>これを<strong>ベイズの定理</strong>と呼ぶ。これは、条件付き確率の関係から得られる次の式</p>
+<p><span class="math display">\[
+P(A|B)P(B) = P(B|A)P(A)
+\]</span></p>
+<p>の両辺を<span class="math inline">\(P(B)\)</span>で割り、全確率の公式を適用することで得られる。</p>
 </div>
-<div id="周辺確率密度関数" class="section level3">
-<h3><span class="header-section-number">1.2.6</span> 周辺確率密度関数</h3>
 </div>
-<div id="条件付き確率関数" class="section level3">
-<h3><span class="header-section-number">1.2.7</span> 条件付き確率関数</h3>
-</div>
-<div id="条件付き確率密度関数" class="section level3">
-<h3><span class="header-section-number">1.2.8</span> 条件付き確率密度関数</h3>
-</div>
-<div id="累積分布関数" class="section level3">
-<h3><span class="header-section-number">1.2.9</span> 累積分布関数</h3>
-</div>
-<div id="生存関数" class="section level3">
-<h3><span class="header-section-number">1.2.10</span> 生存関数</h3>
-</div>
-<div id="モーメント母関数積率母関数" class="section level3">
-<h3><span class="header-section-number">1.2.11</span> モーメント母関数（積率母関数）</h3>
-</div>
-<div id="確率母関数" class="section level3">
-<h3><span class="header-section-number">1.2.12</span> 確率母関数</h3>
+<div id="PIE" class="section level3">
+<h3><span class="header-section-number">1.1.5</span> 包除原理</h3>
+<p>和集合の元の数を計算するには、それぞれの集合の元の数の合計から共通部分を引けば良い、というもの。数学的に扱いにくい「または」を扱いやすい「かつ」だけの式に変換できる点が優れている。</p>
+<p>集合が2つの場合は</p>
+<p><span class="math display">\[
+|A \cup B| = |A| + |B| - |A \cap B|
+\]</span></p>
+<p>となり、3つなら</p>
+<p><span class="math display">\[
+|A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |B \cap C| - |C \cap A| + |A \cap B \cap C|
+\]</span></p>
+<p>となる。</p>
+<p>要するに「かつ」で繋がる集合の数が増えると、正負の記号が交互に現れる。これにより帳尻が合わせられ、共通部分は式の中で1回だけ出現することになる。</p>
+<ul>
+<li>cf. <a href="https://mathtrain.jp/hojo">包除原理の２通りの証明 | 高校数学の美しい物語</a></li>
+</ul>
 </div>
 </div>
             </section>
@@ -170,8 +252,8 @@
           </div>
         </div>
       </div>
-<a href="1-1-event-and-probability.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="1-3-.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1-probability-and-random-variable.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="1-2-.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

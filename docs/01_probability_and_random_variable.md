@@ -1,16 +1,120 @@
 # 確率と確率変数 {#probability_and_random_variable}
 
-## 事象と確率
+## 事象と確率 {#event_and_probability}
 
-### 確率の計算
+- **事象**（event)...おこりうる事柄のこと。
+  - **全事象**または**標本空間**（sample space）...可能な結果全ての集合。$\Omega$で表す。
+  - **標本点**（sample point）...全事象の元。$\omega$で表す。
+  - 事象は全事象の部分集合である。
+  - **空事象**（empty event）...標本点を含まない事象。$\{\}$または$\emptyset$で表す（$\phi$で代用されることが多い）。
+  - **積事象**（intersection）...2つの事象$A$と$B$が両方共起こる事象。
+    - $A \cap B = \{x | x \in A \land x \in B\}$
+  - **和事象**（union）...2つの事象$A$と$B$の少なくともどちらかが起こる事象
+    - $A \cup B = \{x | x \in A \lor x \in B\}$
+  - **補集合**（complement）...$A$に属さない元の集合。$A^c$と表す。
+  - **差集合**（relative complement）...$A$に属するが$B$に属さない元の集合。
+    - $A \setminus B = A \cup B^c$
+  - **対称差**（symmetric difference）...$A$に属し$B$に属さないものと、$B$に属し$A$に属さないものの集合。
+    - $A \Delta B = (A \setminus B) \cup (B \setminus A)$
 
-### 統計的独立
+- **確率**（probability）...事象$A$に対して確率$P(A)$は、区間$[0, 1]$の間の実数を対応させる関数である。
+  - **集合族**...事象の集合。事象は$\Omega$の部分集合であるので、部分集合の集合ということ。
+  - **可測集合族**...確率を定義できる集合族$\mathcal{B}$は、次の3つの性質を満たす必要がある。
+    (1) $\emptyset \in \mathcal{B}, \Omega \in \mathcal{B}$
+    (2) $A \in \mathcal{B}$ならば$A^c \in \mathcal{B}$
+    (3) $A_k \in \mathcal{B}, k = 1, 2, ,...$ならば$\bigcup_{k=1}^\infty A_k \in \mathcal{B}$
+  - **可測集合**...可測集合族の元。
+  - **確率**（probability）...可測集合$A$に対して実数を対応する関数$P(\cdot)$で、次の条件を満たすもの。なお、2を除く条件を満たす関数を**測度**（measure）と呼ぶ。
+    (1) すべての$A \in \mathcal{B}$に対して$P(A) \geq 0$
+    (2) $P(\Omega) = 1$
+    (3) $A_k \in \mathcal{B}, k = 1, 2, ...$が互いに排反であるとき、$P(\bigcup_{k=1}^\infty A_k) = \sum_{n=1}^\infty P(A_k)$が成り立つ
+  - **確率空間**...$(\Omega, \mathcal{B}, P)$のこと。
 
-### 条件付き確率
+### 確率の計算 {#calculate_probability}
 
-### ベイズの定理
+- 確率の定義から次の性質が導かれる。
+  1. $P(A^c) = 1 - P(A)$
+  2. $A \subset B$ならば$P(A) \leq P(B)$
+  3. $P(A \cap B) \leq min(P(A), P(B))$
+  4. $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
 
-### 包除原理
+### 統計的独立 {#independence}
+
+2つの事象$A$と$B$があったとき、片方の事象が起こるかどうかがもう片方の事象が起こるかどうかに影響を及ぼさないとき、2つの事象は**独立である**と言う。
+
+定義としては、以下の条件を満たす場合を呼ぶ。
+
+$$
+P(A \cap B) = P(A)P(B)
+$$
+
+### 条件付き確率 {#conditional_probability}
+
+2つの事象$A$と$B$があり、$P(B) > 0$のとき、次の値を$B$を与えたときの$A$の**条件付き確率**（conditional probability）と呼ぶ。
+
+$$
+P(A|B) = \frac{P(A \cap B)}{P(B)}
+$$
+
+上記の式の両辺に$P(B)$を掛けると、
+
+$$
+P(A|B)P(B) = P(A \cap B)
+$$
+
+が得られるが、同様の操作を$P(B|A)$に対しても行うことで、次の関係が得られる。
+
+$$
+P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)
+$$
+
+### ベイズの定理 {#bayes_theorem}
+
+#### 全確率の公式 {#law_of_total_probability}
+
+$$
+P(A) = \sum_{k=1}^\infty P(A|B_k)P(B_k)
+$$
+
+ただし、$B_1, B_2, ...$は互いに排反であり、$\bigcup_{k=1}^\infty B_k = \Omega$でなければならない。
+
+#### ベイズの定理 {#bayes_tehorem_2}
+
+$B_1, B_2, ...$は互いに排反であり、$\bigcup_{k=1}^\infty B_k = \Omega$を満たすとき、$P(B_j|A)$を次のように表す。
+
+$$
+P(B_j|A) = \frac{P(A|B_j)P(B_j)}{\sum_{k=1}^\infty P(A|B_k)P(B_k)}
+$$
+
+これを**ベイズの定理**と呼ぶ。これは、条件付き確率の関係から得られる次の式
+
+$$
+P(A|B)P(B) = P(B|A)P(A)
+$$
+
+の両辺を$P(B)$で割り、全確率の公式を適用することで得られる。
+
+### 包除原理 {#PIE}
+
+和集合の元の数を計算するには、それぞれの集合の元の数の合計から共通部分を引けば良い、というもの。数学的に扱いにくい「または」を扱いやすい「かつ」だけの式に変換できる点が優れている。
+
+集合が2つの場合は
+
+$$
+|A \cup B| = |A| + |B| - |A \cap B|
+$$
+
+となり、3つなら
+
+$$
+|A \cup B \cup C| = |A| + |B| + |C| - |A \cap B| - |B \cap C| - |C \cap A| + |A \cap B \cap C|
+$$
+
+となる。
+
+要するに「かつ」で繋がる集合の数が増えると、正負の記号が交互に現れる。これにより帳尻が合わせられ、共通部分は式の中で1回だけ出現することになる。
+
+- cf. [包除原理の２通りの証明 | 高校数学の美しい物語](https://mathtrain.jp/hojo)
 
 ## 確率分布と母関数
 
