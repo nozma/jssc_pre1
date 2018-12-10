@@ -71,7 +71,7 @@
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html"><i class="fa fa-check"></i><b>1.2</b> 確率分布と母関数</a><ul>
 <li class="chapter" data-level="1.2.1" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html#probability_mass_function"><i class="fa fa-check"></i><b>1.2.1</b> 確率関数</a></li>
-<li class="chapter" data-level="1.2.2" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html#確率密度関数"><i class="fa fa-check"></i><b>1.2.2</b> 確率密度関数</a></li>
+<li class="chapter" data-level="1.2.2" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html#probability_density_function"><i class="fa fa-check"></i><b>1.2.2</b> 確率密度関数</a></li>
 <li class="chapter" data-level="1.2.3" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html#同時確率関数"><i class="fa fa-check"></i><b>1.2.3</b> 同時確率関数</a></li>
 <li class="chapter" data-level="1.2.4" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html#同時確率密度関数"><i class="fa fa-check"></i><b>1.2.4</b> 同時確率密度関数</a></li>
 <li class="chapter" data-level="1.2.5" data-path="1-2-probability-distribution-and-generationg-function.html"><a href="1-2-probability-distribution-and-generationg-function.html#周辺確率関数"><i class="fa fa-check"></i><b>1.2.5</b> 周辺確率関数</a></li>
@@ -361,7 +361,7 @@
 <p><span class="math display">\[
 f_X(x) = P(X =x)
 \]</span></p>
-<p>を<strong>確率関数</strong>（probability function）または<strong>確率質量関数</strong>（probability mass function; PMF）と呼ぶ。</p>
+<p>を<strong>確率関数</strong>（probability function）または<strong>確率質量関数</strong>（probability mass function; PMF）と呼ぶ。要するに確率変数の実現値をつっこむとその値に対応する確率が返ってくるような関数。</p>
 <p>確率関数は確率であるため、次の性質を満たす点に注意しておく。</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(0 \leq P_i \leq 1\)</span></li>
@@ -374,13 +374,37 @@ F_X(x) = P(X \leq x) = \sum_{x_i \leq x} P_i
 \]</span></p>
 <p>文章で表現すれば、上記の式は<span class="math inline">\(X\)</span>が<span class="math inline">\(x\)</span>以下の値になる確率を求めるための関数である。<strong>累積分布関数</strong>と呼ぶ場合もある。確率変数<span class="math inline">\(X\)</span>が離散型であっても、分布関数の変数<span class="math inline">\(x\)</span>は連続型であるという点に注意する。例えば、サイコロの目が3.5になることはありえないが、「サイコロの目が3.5以下の確率」は求めることができるのである。</p>
 </div>
-<div id="確率密度関数" class="section level3">
+<div id="probability_density_function" class="section level3">
 <h3><span class="header-section-number">1.2.2</span> 確率密度関数</h3>
 <p>連続型確率変数<span class="math inline">\(X\)</span>に対し、</p>
 <p><span class="math display">\[
 F_X(x) = \int_{-\infty}^x f_X(t) dt
 \]</span></p>
 <p>となるような関数<span class="math inline">\(f_X(x)\)</span>を<strong>確率密度関数</strong>（probability density function; PDF）と呼ぶ。</p>
+<p>確率関数と違って、連続型確率変数では確率変数が特定の値をとる確率は0となる（<span class="math inline">\(P(X = x) = f_X(x)dx = 0\)</span>である）。しかし、<strong>密度</strong>ならば測定できる。例えば、区間<span class="math inline">\([0, 1]\)</span>の連続型一様分布を考えると、確率変数の値が厳密に0.5となる確率は0であるが、確率変数が0.5以下となる確率であれば0.5である。したがって、上記のように先に累積分布を想定しておき、その被積分関数<span class="math inline">\(f_X(x)\)</span>を確率密度関数と呼ぶのである。上記一様分布の場合、確率密度関数は次のようになる。</p>
+<p><span class="math display">\[
+f_X(x) = 
+\begin{cases}
+1 &amp; (0 \leq x \leq 1) \\
+0 &amp; (\mathrm{otherwise})
+\end{cases}
+\]</span></p>
+<p>なお、区間<span class="math inline">\(a\)</span>から<span class="math inline">\(b\)</span>に対する一般の一様分布であれば次のようになる（<span class="math inline">\(a \lt b\)</span>とする）。</p>
+<p><span class="math display">\[
+f_X(x) = 
+\begin{cases}
+\frac{1}{a - b} &amp; (a \leq x \leq b) \\
+0 &amp; (\mathrm{otherwise})
+\end{cases}
+\]</span></p>
+<p>なお、非積分値が1にならない関数も、非積分値が1になるように、すなわち区間<span class="math inline">\([-\infty, \infty]\)</span>で積分した値で割ることで確率密度関数とすることができる。このときの分母を<strong>正規化定数</strong>と呼ぶ。</p>
+<p>確率密度関数の性質としては次のようなものが挙げられる。</p>
+<ul>
+<li><span class="math inline">\(f_X(x)dx = 0\)</span>…特定の値になる確率は0</li>
+<li><span class="math inline">\(\int_{-\infty}^\infty f_X(x)dx = 1\)</span>…全確率</li>
+<li><span class="math inline">\(\int_b^a f_X(x)dx = P(a \leq X \leq b)\)</span></li>
+</ul>
+<p>全ての区間にわたっての積分値が1になるという条件さえ満たしていれば、確率密度関数自体の値は1を超える場合もありうる、という点に注意すること。</p>
 </div>
 <div id="同時確率関数" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> 同時確率関数</h3>
