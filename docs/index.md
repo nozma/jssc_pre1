@@ -1,6 +1,6 @@
 ---
 title: "統計検定準1級のノート"
-date: "last update: 2018-12-07"
+date: "last update: 2018-12-11"
 site: bookdown::bookdown_site
 documentclass: book
 ---

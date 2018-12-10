@@ -16,6 +16,9 @@
     - $A \setminus B = A \cup B^c$
   - **対称差**（symmetric difference）...$A$に属し$B$に属さないものと、$B$に属し$A$に属さないものの集合。
     - $A \Delta B = (A \setminus B) \cup (B \setminus A)$
+  - **ド・モルガンの法則**
+    - $(A \cup B)^c = A^c \cap B^c$
+    - $(A \cap B)^c = A^c \cup B^c$
 
 - **確率**（probability）...事象$A$に対して確率$P(A)$は、区間$[0, 1]$の間の実数を対応させる関数である。
   - **集合族**...事象の集合。事象は$\Omega$の部分集合であるので、部分集合の集合ということ。
@@ -29,6 +32,12 @@
     (2) $P(\Omega) = 1$
     (3) $A_k \in \mathcal{B}, k = 1, 2, ...$が互いに排反であるとき、$P(\bigcup_{k=1}^\infty A_k) = \sum_{n=1}^\infty P(A_k)$が成り立つ
   - **確率空間**...$(\Omega, \mathcal{B}, P)$のこと。
+  - **確率変数**...$\omega \in \Omega$に対して、実数値$X(\omega) \in \mathbb{R}$を対応させるような**関数**$X$のこと。任意の$x \in \mathbb{R}$について、$X \leq x$である確率は$P(\cdot)$を用いて次のように与えられる。
+    - $P(X \leq x) = P(\{\omega \in \Omega | X(\omega) \leq x\})$
+    - つまり、事象を実数に翻訳する関数ということである。
+    - $P(\cdot)$は可測集合族$\mathcal{B}$の上に定義したものなので、厳密には$\{\omega \in \Omega | X(\omega) \leq x\} \in \mathcal{B}$でなければならない。
+    - $\omega$に対して定まる値$X(\omega) = x$を**実現値**と呼ぶ。
+    - 実現値全体を$\mathcal{X} = {X(\omega) | \omega \in \Omega}$で表し、$X$の**標本空間**（sample space）と呼ぶ。
 
 ### 確率の計算 {#calculate_probability}
 
@@ -42,10 +51,20 @@
 
 2つの事象$A$と$B$があったとき、片方の事象が起こるかどうかがもう片方の事象が起こるかどうかに影響を及ぼさないとき、2つの事象は**独立である**と言う。
 
-定義としては、以下の条件を満たす場合を呼ぶ。
+独立であるための必要十分条件は次の式で示される。
 
 $$
 P(A \cap B) = P(A)P(B)
+$$
+
+また、条件付き確率の定義から、上記の式は次のように変形できる。
+
+$$
+P(A|B) = P(A)
+$$
+
+$$
+P(B|A) = P(B)
 $$
 
 ### 条件付き確率 {#conditional_probability}
@@ -92,7 +111,7 @@ $$
 P(A|B)P(B) = P(B|A)P(A)
 $$
 
-の両辺を$P(B)$で割り、全確率の公式を適用することで得られる。
+の両辺を$P(A)$か$P(B)$で割り、分母に全確率の公式を適用することで得られる。
 
 ### 包除原理 {#PIE}
 
@@ -116,13 +135,51 @@ $$
 
 - cf. [包除原理の２通りの証明 | 高校数学の美しい物語](https://mathtrain.jp/hojo)
 
-## 確率分布と母関数
+## 確率分布と母関数 {#probability_distribution_and_generationg_function}
 
-### 確率関数
+### 確率関数 {#probability_mass_function}
+
+離散型確率変数$X$に対し、
+
+$$
+f_X(x) = P(X =x)
+$$
+
+を**確率関数**（probability function）または**確率質量関数**（probability mass function; PMF）と呼ぶ。
+
+確率関数は確率であるため、次の性質を満たす点に注意しておく。
+
+1. $0 \leq P_i \leq 1$
+2. $\sum_{i=1}^n P_i = 1$（全確率）
+3. $P(a \leq X \leq b) = \sum_{a \leq X_i \leq b} P_i$
+
+また、確率関数に対して**分布関数**$F_X(x)$を次のように定義する。
+
+$$
+F_X(x) = P(X \leq x) = \sum_{x_i \leq x} P_i
+$$
+
+文章で表現すれば、上記の式は$X$が$x$以下の値になる確率を求めるための関数である。**累積分布関数**と呼ぶ場合もある。確率変数$X$が離散型であっても、分布関数の変数$x$は連続型であるという点に注意する。例えば、サイコロの目が3.5になることはありえないが、「サイコロの目が3.5以下の確率」は求めることができるのである。
 
 ### 確率密度関数
 
+連続型確率変数$X$に対し、
+
+$$
+F_X(x) = \int_{-\infty}^x f_X(t) dt
+$$
+
+となるような関数$f_X(x)$を**確率密度関数**（probability density function; PDF）と呼ぶ。
+
 ### 同時確率関数
+
+離散型確率関数$X$と$Y$があったとき、$(X, Y) = (x, y)$のときの確率を
+
+$$
+f_{XY}(x, y) = P(X = x, Y = y)
+$$
+
+とし、これを$X$と$Y$の同時確率関数と呼ぶ。
 
 ### 同時確率密度関数
 
